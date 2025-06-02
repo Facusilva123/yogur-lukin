@@ -3,70 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yogur Lukin</title>
+  <title>Yogur del Valle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --verde-claro: #e0f5ec;
+      --verde-oscuro: #2f7e56;
+      --blanco: #ffffff;
+      --gris: #5a5a5a;
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      background-color: #fefefe;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: var(--blanco);
       color: #333;
+      scroll-behavior: smooth;
     }
+
     header {
-      background-color: #e0f5ec;
-      padding: 2rem;
+      background: linear-gradient(120deg, var(--verde-oscuro), var(--verde-claro));
+      padding: 4rem 2rem;
       text-align: center;
+      color: var(--blanco);
+      animation: fadeIn 1.2s ease-in;
     }
+
     header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      color: #2f7e56;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
     }
+
     header p {
       font-size: 1.2rem;
-      color: #5a5a5a;
     }
+
     section {
-      padding: 2rem;
-      max-width: 900px;
+      padding: 3rem 2rem;
+      max-width: 1100px;
       margin: 0 auto;
+      animation: fadeUp 1s ease-in-out;
     }
+
+    h2 {
+      color: var(--verde-oscuro);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
+
     .producto {
+      background-color: var(--blanco);
       border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 1rem;
-      background-color: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
     .producto img {
       width: 100%;
       border-radius: 10px;
+      margin-bottom: 1rem;
     }
+
     .boton {
       display: inline-block;
-      margin-top: 1rem;
-      background-color: #2f7e56;
-      color: white;
-      padding: 0.5rem 1rem;
+      background-color: var(--verde-oscuro);
+      color: var(--blanco);
+      padding: 0.6rem 1.2rem;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
     }
+
+    .boton:hover {
+      background-color: #256d49;
+    }
+
     footer {
-      text-align: center;
+      background-color: var(--verde-claro);
       padding: 2rem;
-      background-color: #e0f5ec;
-      color: #555;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--gris);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Yogur Lukine</h1>
+    <h1>Yogur del Valle</h1>
     <p>El yogur más natural, directo a tu mesa</p>
   </header>
 
@@ -76,31 +130,36 @@
       <div class="producto">
         <img src="https://via.placeholder.com/300x200?text=Yogur+Natural" alt="Yogur Natural">
         <h3>Yogur Griego Natural</h3>
-        <p>Cremoso. Ideal para vos!</p>
-        <a class="boton" href="https://wa.me/5493814729304">Pedir por WhatsApp</a>
+        <p>Cremoso, sin azúcar. Ideal para recetas o solo.</p>
+        <a class="boton" href="https://wa.me/549XXXXXXXXXX">Pedir por WhatsApp</a>
       </div>
       <div class="producto">
         <img src="https://via.placeholder.com/300x200?text=Yogur+con+Frutas" alt="Yogur con frutas">
         <h3>Yogur con Frutas</h3>
         <p>Con trozos de frutas naturales. ¡Delicioso!</p>
-        <a class="boton" href="https://wa.me/5493814729304">Pedir por WhatsApp</a>
+        <a class="boton" href="https://wa.me/549XXXXXXXXXX">Pedir por WhatsApp</a>
       </div>
     </div>
   </section>
 
   <section>
     <h2>¿Por qué elegirnos?</h2>
-    <p>Nuestro yogur es elaborado con ingredientes 100% naturales, sin conservantes ni aditivos. Una opción saludable y artesanal para vos y tu familia.</p>
+    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
+      Nuestro yogur es elaborado con ingredientes 100% naturales, sin conservantes ni aditivos. Una opción saludable y artesanal para vos y tu familia.
+    </p>
   </section>
 
   <section>
     <h2>Sobre Nosotros</h2>
-    <p>Somos un pequeño emprendimiento entre emilse y yo, comprometidos con la calidad y el sabor. Desde el corazón de lukin, llevamos a tu hogar un producto honesto, fresco y nutritivo. Que supuestamente va aestar bueno jaja</p>
+    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
+      Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde el corazón del valle, llevamos a tu hogar un producto honesto, fresco y nutritivo.
+    </p>
   </section>
 
   <footer>
-    <p>Contacto: <a href="A lukin, barrio santa rita">"A lukin, barrio santa rita"</a></p>
-    <p>&copy; 2025 Yogur Lukin. Todos los derechos reservados.</p>
+    <p>Contacto: <a href="mailto:info@yogurdelvalle.com">info@yogurdelvalle.com</a></p>
+    <p>&copy; 2025 Yogur del Valle. Todos los derechos reservados.</p>
   </footer>
 </body>
 </html>
+
