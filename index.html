@@ -1,280 +1,193 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yogur del lukis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --verde-claro: #e0f5ec;
-      --verde-oscuro: #2f7e56;
-      --blanco: #ffffff;
-      --gris: #5a5a5a;
-    }
+<style>
+  :root {
+    --verde-claro: #e0f5ec;
+    --verde-oscuro: #2f7e56;
+    --blanco: #ffffff;
+    --gris: #5a5a5a;
+    --sombra: rgba(0, 0, 0, 0.1);
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    body {
-      font-family: 'Raleway', sans-serif;
-      background-color: var(--blanco);
-      color: #333;
-      scroll-behavior: smooth;
-    }
+  body {
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--blanco);
+    color: #333;
+    scroll-behavior: smooth;
+  }
 
-    header {
-      background: linear-gradient(120deg, var(--verde-oscuro), var(--verde-claro));
-      padding: 4rem 2rem;
-      text-align: center;
-      color: var(--blanco);
-      animation: fadeIn 1.2s ease-in;
-    }
+  header {
+    background: linear-gradient(120deg, var(--verde-oscuro), var(--verde-claro));
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--blanco);
+    animation: fadeIn 1.2s ease-in;
+  }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
+  header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    animation: popIn 1s ease-out;
+  }
 
-    header p {
-      font-size: 1.2rem;
-    }
+  header p {
+    font-size: 1.2rem;
+    animation: fadeIn 1.5s ease-in;
+  }
 
-    nav {
-      background-color: var(--verde-oscuro);
-      padding: 1rem;
-      text-align: center;
-    }
+  nav {
+    background-color: var(--verde-oscuro);
+    padding: 1rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 6px var(--sombra);
+  }
 
-    nav button {
-      background-color: var(--blanco);
-      color: var(--verde-oscuro);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+  nav button {
+    background: linear-gradient(90deg, var(--blanco), #f0f0f0);
+    color: var(--verde-oscuro);
+    border: 2px solid var(--verde-oscuro);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-    section {
-      padding: 3rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      animation: fadeUp 1s ease-in-out;
-    }
+  nav button:hover {
+    background-color: var(--verde-oscuro);
+    color: var(--blanco);
+  }
 
-    h2 {
-      color: var(--verde-oscuro);
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2rem;
-    }
+  section {
+    padding: 3rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    animation: fadeUp 1s ease-in-out;
+  }
 
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
+  h2 {
+    color: var(--verde-oscuro);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
 
-    .producto {
-      background-color: var(--blanco);
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+  .productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
 
-    .producto:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
+  .producto {
+    background-color: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px var(--sombra);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform: translateY(0);
+    animation: fadeCard 0.5s ease-in-out;
+  }
 
-    .producto img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-    }
+  .producto:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  }
 
-    .boton {
-      display: inline-block;
-      background-color: var(--verde-oscuro);
-      color: var(--blanco);
-      padding: 0.6rem 1.2rem;
-      text-decoration: none;
-      border-radius: 6px;
-      margin-top: 1rem;
-      transition: background-color 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
+  .producto img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: transform 0.4s ease;
+  }
 
-    .boton:hover {
-      background-color: #256d49;
-    }
+  .producto img:hover {
+    transform: scale(1.05);
+  }
 
-    #carrito-panel {
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      width: 300px;
-      max-height: 80vh;
-      overflow-y: auto;
-      background-color: var(--verde-claro);
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
+  .boton {
+    display: inline-block;
+    background-color: var(--verde-oscuro);
+    color: var(--blanco);
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
 
-    #carrito-panel h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
+  .boton:hover {
+    background-color: #256d49;
+    transform: scale(1.05);
+  }
 
-    #carrito-lista {
-      margin-bottom: 1rem;
-    }
+  #carrito-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: var(--verde-claro);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px var(--sombra);
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+  }
 
-    footer {
-      background-color: var(--verde-claro);
-      padding: 2rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--gris);
-    }
+  #carrito-panel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  #carrito-lista {
+    margin-bottom: 1rem;
+  }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Yogur del lukis</h1>
-    <p>El yogur más natural, directo a tu mesa desde santa rita</p>
-  </header>
+  footer {
+    background-color: var(--verde-claro);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--gris);
+    box-shadow: inset 0 2px 10px var(--sombra);
+    animation: fadeIn 2s ease-in;
+  }
 
-  <nav>
-    <button onclick="mostrarCarrito()">🛒 Ver carrito (<span id="carrito-contador">0</span>)</button>
-  </nav>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-  <section>
-    <h2>Nuestros Productos</h2>
-    <div class="productos" id="productos-container"></div>
-  </section>
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-  <div id="carrito-panel">
-    <h2>Carrito</h2>
-    <ul id="carrito-lista"></ul>
-    <button class="boton" onclick="vaciarCarrito()">Vaciar carrito</button>
-    <button class="boton" onclick="enviarPedido()" style="margin-top: 0.5rem;">Enviar por WhatsApp</button>
-  </div>
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+  }
 
-  <section>
-    <h2>¿Por qué elegirnos?</h2>
-    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
-      Nuestro yogur es elaborado con ingredientes 100% naturales, sin conservantes ni aditivos. Una opción saludable y artesanal para vos y tu familia. directamente enviado desde el corazon del tranza de santa rita!!!
-    </p>
-  </section>
+  @keyframes fadeCard {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+  }
 
-  <section>
-    <h2>Sobre Nosotros</h2>
-    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
-      Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde el corazón de santa rita, llevamos a tu hogar un producto honesto, fresco y nutritivo.
-    </p>
-  </section>
-
-  <footer>
-    <p>Contacto: <a href="mailto:luki.com">lukiiii</a></p>
-    <p>&copy; 2025 Yogur del luki. Todos los derechos reservados.</p>
-  </footer>
-
-  <script>
-    const productos = [
-      { nombre: "Yogur Griego Natural 1/2 KG", imagen: "fer-lukin.jpg", descripcion: "Cremoso, sin azúcar. Ideal para recetas o solin solito solon." },
-      { nombre: "Yogur Griego Natural 1 KG", imagen: "Lukin.jpg", descripcion: "Con un trozo de banana gigante. Delicioso para la gorda!" },
-      { nombre: "Miel", imagen: "vainilla.jpg", descripcion: "Con el dulzor natural de la miel" },
-      { nombre: "Frutos secos", imagen: "miel.jpg", descripcion: "Un clásico irresistible con fruta real" },
-      { nombre: "Nueces", imagen: "durazno.jpg", descripcion: "Te metí" },
-      { nombre: "Leche de mipalo", imagen: "coco.jpg", descripcion: "Textura cremosa y sabor tropical." },
-    ];
-
-    let carrito = [];
-
-    function renderProductos() {
-      const contenedor = document.getElementById("productos-container");
-      productos.forEach(producto => {
-        const div = document.createElement("div");
-        div.className = "producto";
-        div.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}">
-          <h3>${producto.nombre}</h3>
-          <p>${producto.descripcion}</p>
-          <button class="boton" onclick="agregarAlCarrito('${producto.nombre}')">Agregar al carrito</button>
-        `;
-        contenedor.appendChild(div);
-      });
-    }
-
-    function agregarAlCarrito(producto) {
-      carrito.push(producto);
-      actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-      document.getElementById("carrito-contador").innerText = carrito.length;
-      const lista = document.getElementById("carrito-lista");
-      lista.innerHTML = "";
-      carrito.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.innerText = item + " ";
-        const btn = document.createElement("button");
-        btn.innerText = "❌";
-        btn.onclick = () => eliminarDelCarrito(index);
-        btn.style.marginLeft = "10px";
-        li.appendChild(btn);
-        lista.appendChild(li);
-      });
-    }
-
-    function eliminarDelCarrito(index) {
-      carrito.splice(index, 1);
-      actualizarCarrito();
-    }
-
-    function vaciarCarrito() {
-      carrito = [];
-      actualizarCarrito();
-    }
-
-    function mostrarCarrito() {
-      const panel = document.getElementById("carrito-panel");
-      panel.style.display = panel.style.display === "none" ? "block" : "none";
-    }
-
-    function enviarPedido() {
-      if (carrito.length === 0) {
-        alert("El carrito está vacío.");
-        return;
-      }
-      const mensaje = encodeURIComponent("Hola Lukin! Quiero pedir:\n- " + carrito.join("\n- "));
-      window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
-    }
-
-    renderProductos();
-    actualizarCarrito();
-  </script>
-</body>
-</html>
+  @keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
 
