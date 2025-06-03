@@ -93,6 +93,8 @@
       border-radius: 6px;
       margin-top: 1rem;
       transition: background-color 0.3s ease;
+      border: none;
+      cursor: pointer;
     }
 
     .boton:hover {
@@ -131,14 +133,42 @@
         <img src="fer-lukin.jpg" alt="Yogur Natural">
         <h3>Yogur Griego Natural</h3>
         <p>Cremoso, sin azúcar. Ideal para recetas o solin solito solon.</p>
-        <a class="boton" href="https://wa.me/5493814729304">Pedir por WhatsApp</a>
+        <button class="boton" onclick="agregarAlCarrito('Yogur Griego Natural')">Agregar al carrito</button>
       </div>
       <div class="producto">
         <img src="Lukin.jpg" alt="Yogur con frutas">
         <h3>Yogur con Frutas</h3>
         <p>Con un trozo de banana gigante. Delicioso para la gorda!</p>
-        <a class="boton" href="https://wa.me/5493814729304">Pedir por WhatsApp</a>
+        <button class="boton" onclick="agregarAlCarrito('Yogur con Frutas')">Agregar al carrito</button>
       </div>
+      <div class="producto">
+        <img src="vainilla.jpg" alt="Yogur de Vainilla">
+        <h3>Yogur de Vainilla</h3>
+        <p>Suave y perfumado. Ideal para desayunos.</p>
+        <button class="boton" onclick="agregarAlCarrito('Yogur de Vainilla')">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="miel.jpg" alt="Yogur con Miel">
+        <h3>Yogur con Miel</h3>
+        <p>Con el dulzor natural de la miel del monte.</p>
+        <button class="boton" onclick="agregarAlCarrito('Yogur con Miel')">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="durazno.jpg" alt="Yogur con Durazno">
+        <h3>Yogur con Durazno</h3>
+        <p>Un clásico irresistible con fruta real.</p>
+        <button class="boton" onclick="agregarAlCarrito('Yogur con Durazno')">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="coco.jpg" alt="Yogur con Coco">
+        <h3>Yogur con Coco</h3>
+        <p>Textura cremosa y sabor tropical.</p>
+        <button class="boton" onclick="agregarAlCarrito('Yogur con Coco')">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="boton" onclick="enviarPedido()">Enviar pedido por WhatsApp</button>
     </div>
   </section>
 
@@ -160,6 +190,24 @@
     <p>Contacto: <a href="mailto:luki.com">lukiiii</a></p>
     <p>&copy; 2025 Yogur del luki. Todos los derechos reservados.</p>
   </footer>
+
+  <script>
+    let carrito = [];
+
+    function agregarAlCarrito(producto) {
+      carrito.push(producto);
+      alert(`Agregado: ${producto}`);
+    }
+
+    function enviarPedido() {
+      if (carrito.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+      }
+      const mensaje = encodeURIComponent("Hola Lucas! Quiero pedir:\n- " + carrito.join("\n- "));
+      window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
+    }
+  </script>
 </body>
 </html>
 
