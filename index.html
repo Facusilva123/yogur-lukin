@@ -1,119 +1,363 @@
-<body>
-  <header>
-    <h1>Yogur del Lukis</h1>
-    <p>El yogur más natural, directo a tu mesa desde Santa Rita</p>
-  </header>
-
-  <nav>
-    <button onclick="mostrarCarrito()">🛒 Ver carrito (<span id="carrito-contador">0</span>)</button>
-  </nav>
-
-  <section>
-    <h2>Nuestros Productos</h2>
-    <div class="productos" id="productos-container"></div>
-  </section>
-
-  <div id="carrito-panel">
-    <h2>Carrito</h2>
-    <ul id="carrito-lista"></ul>
-    <button class="boton" onclick="vaciarCarrito()">Vaciar carrito</button>
-    <button class="boton" onclick="enviarPedido()" style="margin-top: 0.5rem;">Enviar por WhatsApp</button>
-  </div>
-
-  <section>
-    <h2>¿Por qué elegirnos?</h2>
-    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
-      Nuestro yogur es elaborado con ingredientes 100% naturales, sin conservantes ni aditivos. Una opción saludable y artesanal para vos y tu familia.
-    </p>
-  </section>
-
-  <section>
-    <h2>Sobre Nosotros</h2>
-    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
-      Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde Santa Rita, llevamos a tu hogar un producto honesto, fresco y nutritivo.
-    </p>
-  </section>
-
-  <footer>
-    <p>Contacto: <a href="mailto:luki.com">lukiiii</a></p>
-    <p>&copy; 2025 Yogur del Lukis. Todos los derechos reservados.</p>
-  </footer>
-
-  <script>
-    const productos = [
-      { nombre: "Yogur Griego Natural 1/2 KG", imagen: "fer-lukin.jpg", descripcion: "Cremoso, sin azúcar. Ideal para recetas o solin solito solon." },
-      { nombre: "Yogur Griego Natural 1 KG", imagen: "Lukin.jpg", descripcion: "Con un trozo de banana gigante. Delicioso para la gorda!" },
-      { nombre: "Miel", imagen: "vainilla.jpg", descripcion: "Con el dulzor natural de la miel" },
-      { nombre: "Frutos secos", imagen: "miel.jpg", descripcion: "Un clásico irresistible con fruta real" },
-      { nombre: "Nueces", imagen: "durazno.jpg", descripcion: "Te metí" },
-      { nombre: "Leche de mipalo", imagen: "coco.jpg", descripcion: "Textura cremosa y sabor tropical." }
-    ];
-
-    let carrito = [];
-
-    function renderProductos() {
-      const contenedor = document.getElementById("productos-container");
-      productos.forEach(producto => {
-        const div = document.createElement("div");
-        div.className = "producto";
-        div.innerHTML = `
-          <img src="${producto.imagen}" alt="${producto.nombre}">
-          <h3>${producto.nombre}</h3>
-          <p>${producto.descripcion}</p>
-          <button class="boton" onclick="agregarAlCarrito('${producto.nombre}')">Agregar al carrito</button>
-        `;
-        contenedor.appendChild(div);
-      });
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yogur del Lukis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-claro: #e0f5ec;
+      --verde-oscuro: #2f7e56;
+      --blanco: #ffffff;
+      --gris: #5a5a5a;
     }
 
-    function agregarAlCarrito(producto) {
-      carrito.push(producto);
-      actualizarCarrito();
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    function actualizarCarrito() {
-      document.getElementById("carrito-contador").innerText = carrito.length;
-      const lista = document.getElementById("carrito-lista");
-      lista.innerHTML = "";
-      carrito.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.innerText = item + " ";
-        const btn = document.createElement("button");
-        btn.innerText = "❌";
-        btn.onclick = () => eliminarDelCarrito(index);
-        btn.style.marginLeft = "10px";
-        li.appendChild(btn);
-        lista.appendChild(li);
-      });
+    body {
+      font-family: 'Raleway', sans-serif;
+      color: #333;
+      scroll-behavior: smooth;
+      background: linear-gradient(120deg, #e0f5ec, #f8fdf9);
+      background-size: 400% 400%;
+      animation: backgroundAnimation 20s ease infinite;
     }
 
-    function eliminarDelCarrito(index) {
-      carrito.splice(index, 1);
-      actualizarCarrito();
+    @keyframes backgroundAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    function vaciarCarrito() {
-      carrito = [];
-      actualizarCarrito();
+    header {
+      background: linear-gradient(120deg, var(--verde-oscuro), var(--verde-claro));
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--blanco);
+      animation: fadeIn 1.2s ease-in;
     }
 
-    function mostrarCarrito() {
-      const panel = document.getElementById("carrito-panel");
-      panel.scrollIntoView({ behavior: "smooth" });
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      animation: popIn 1s ease-out;
     }
 
-    function enviarPedido() {
-      if (carrito.length === 0) {
-        alert("El carrito está vacío.");
-        return;
+    header p {
+      font-size: 1.2rem;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Menú lateral + hamburguesa */
+    #menu-toggle {
+      display: none;
+    }
+
+    #menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: var(--verde-oscuro);
+      padding: 2rem 1rem;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+      color: white;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+
+    #menu.open {
+      transform: translateX(0);
+    }
+
+    #menu h3 {
+      margin-bottom: 1rem;
+    }
+
+    #menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    #menu a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: var(--verde-oscuro);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 15px;
+      border-radius: 6px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+      #menu {
+        transform: translateX(0);
       }
-      const mensaje = encodeURIComponent("Hola Lukin! Quiero pedir:\n- " + carrito.join("\n- "));
-      window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
-    }
 
-    renderProductos();
+      .menu-btn {
+        display: none;
+      }
+
+      body {
+        margin-left: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Botón hamburguesa -->
+<button class="menu-btn" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+
+<!-- Menú lateral -->
+<div id="menu">
+  <h3>Yogur Lukis</h3>
+  <a href="#productos">Productos</a>
+  <a href="#carrito">Carrito</a>
+  <a href="#nosotros">Nosotros</a>
+</div>
+
+<!-- Header -->
+<header>
+  <h1>Yogur del Lukis</h1>
+  <p>El yogur más natural, directo a tu mesa desde Santa Rita</p>
+</header>
+
+  <!-- Sección Productos -->
+<section id="productos">
+  <h2 style="text-align: center; margin: 2rem 0; font-size: 2rem; color: #2f7e56;">Nuestros Productos</h2>
+  <div class="productos">
+    <!-- Productos se insertan dinámicamente -->
+  </div>
+</section>
+
+<style>
+  .productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .producto {
+    background-color: var(--blanco);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.8s ease;
+  }
+
+  .producto:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  .producto img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    transition: transform 0.4s ease;
+  }
+
+  .producto img:hover {
+    transform: scale(1.05);
+  }
+
+  .producto h3 {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: var(--verde-oscuro);
+  }
+
+  .producto p {
+    font-size: 0.95rem;
+    color: var(--gris);
+  }
+
+  .boton {
+    display: inline-block;
+    background-color: var(--verde-oscuro);
+    color: var(--blanco);
+    padding: 0.5rem 1.2rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+  }
+
+  .boton:hover {
+    background-color: #256d49;
+    transform: scale(1.05);
+  }
+</style>
+
+<script>
+  const productos = [
+    { nombre: "Yogur Griego Natural", imagen: "fer-lukin.jpg", descripcion: "Cremoso, sin azúcar. Ideal para recetas o solo." },
+    { nombre: "Yogur con Frutas", imagen: "Lukin.jpg", descripcion: "Con trozos de frutas reales. Sabor único." },
+    { nombre: "Yogur con Miel", imagen: "miel.jpg", descripcion: "Dulce natural con miel pura." },
+    { nombre: "Yogur de Vainilla", imagen: "vainilla.jpg", descripcion: "Aromático y suave, un clásico." },
+    { nombre: "Yogur con Durazno", imagen: "durazno.jpg", descripcion: "Fruta fresca en cada bocado." },
+    { nombre: "Yogur con Coco", imagen: "coco.jpg", descripcion: "Textura cremosa y sabor tropical." }
+  ];
+
+  const carrito = [];
+
+  function renderizarProductos() {
+    const contenedor = document.querySelector(".productos");
+    productos.forEach((p, index) => {
+      const card = document.createElement("div");
+      card.className = "producto";
+      card.innerHTML = `
+        <img src="${p.imagen}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p>${p.descripcion}</p>
+        <button class="boton" onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
+      `;
+      contenedor.appendChild(card);
+    });
+  }
+
+  function agregarAlCarrito(index) {
+    carrito.push(productos[index].nombre);
     actualizarCarrito();
-  </script>
+  }
+</script>
+<!-- Carrito Flotante -->
+<div id="carrito" class="carrito">
+  <h3>Carrito</h3>
+  <ul id="carrito-lista"></ul>
+  <button class="boton" onclick="vaciarCarrito()">Vaciar carrito</button>
+  <button class="boton" onclick="enviarPedido()">Enviar pedido</button>
+</div>
+
+<style>
+  .carrito {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--verde-claro);
+    border: 2px solid var(--verde-oscuro);
+    border-radius: 12px;
+    padding: 1rem;
+    width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    z-index: 1000;
+  }
+
+  .carrito h3 {
+    margin-bottom: 0.5rem;
+    color: var(--verde-oscuro);
+  }
+
+  .carrito ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .carrito li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .carrito li button {
+    background: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .carrito {
+      width: 90%;
+      right: 5%;
+      bottom: 10px;
+    }
+  }
+</style>
+
+<script>
+  function actualizarCarrito() {
+    const lista = document.getElementById("carrito-lista");
+    lista.innerHTML = "";
+    carrito.forEach((item, index) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      const btn = document.createElement("button");
+      btn.innerText = "✖";
+      btn.onclick = () => eliminarProducto(index);
+      li.appendChild(btn);
+      lista.appendChild(li);
+    });
+  }
+
+  function eliminarProducto(index) {
+    carrito.splice(index, 1);
+    actualizarCarrito();
+  }
+
+  function vaciarCarrito() {
+    carrito.length = 0;
+    actualizarCarrito();
+  }
+
+  function enviarPedido() {
+    if (carrito.length === 0) {
+      alert("El carrito está vacío.");
+      return;
+    }
+    const mensaje = encodeURIComponent("Hola Lukis! Quiero pedir:\n\n" + carrito.map(p => "• " + p).join("\n"));
+    window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
+  }
+
+  // Inicializa al cargar
+  renderizarProductos();
+</script>
+
 </body>
 </html>
 
