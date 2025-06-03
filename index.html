@@ -18,7 +18,21 @@
       padding: 0;
       box-sizing: border-box;
     }
+    
+<!-- Botón flotante para abrir el carrito -->
+<div id="carrito-boton" onclick="abrirCarrito()" title="Ver carrito">🛒</div>
 
+<!-- Panel del carrito (oculto por defecto) -->
+<div id="carrito-panel" class="oculto">
+  <div id="carrito-header">
+    <h3>Mi Carrito</h3>
+    <span id="cerrar-carrito" onclick="cerrarCarrito()">✖</span>
+  </div>
+  <ul id="carrito-lista"></ul>
+  <button class="boton" onclick="vaciarCarrito()">Vaciar</button>
+  <button class="boton" onclick="enviarPedido()">Enviar por WhatsApp</button>
+</div>
+    
     body {
       font-family: 'Raleway', sans-serif;
       color: #333;
@@ -164,6 +178,73 @@
 </section>
 
 <style>
+
+  /* Botón flotante pequeño */
+#carrito-boton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #2f7e56;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+/* Panel del carrito */
+#carrito-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  max-height: 75vh;
+  background-color: #ffffff;
+  border: 2px solid #2f7e56;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+#carrito-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cerrar-carrito {
+  font-size: 1.3rem;
+  color: red;
+  cursor: pointer;
+}
+
+/* Oculto por defecto */
+.oculto {
+  display: none;
+}
+
+#carrito-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#carrito-panel li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+  
   .productos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -230,6 +311,17 @@
 </style>
 
 <script>
+function abrirCarrito() {
+  document.getElementById("carrito-panel").classList.remove("oculto");
+  document.getElementById("carrito-boton").style.display = "none";
+}
+
+function cerrarCarrito() {
+  document.getElementById("carrito-panel").classList.add("oculto");
+  document.getElementById("carrito-boton").style.display = "block";
+}
+
+  
   const productos = [
     { nombre: "Yogur Griego Natural 1 KG", imagen: "fer-lukin.jpg", descripcion: "Cremoso, sin azúcar. Ideal para recetas o solo." },
     { nombre: "Yogur Griego Natural 1/2 KG", imagen: "Lukin.jpg", descripcion: "Con trozos de frutas reales. Sabor único." },
