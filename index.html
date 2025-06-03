@@ -18,66 +18,23 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
-<!-- Botón flotante para abrir el carrito -->
-<div id="carrito-boton" onclick="abrirCarrito()" title="Ver carrito">🛒</div>
 
-<!-- Panel del carrito (oculto por defecto) -->
-<div id="carrito-panel" class="oculto">
-  <div id="carrito-header">
-    <h3>Mi Carrito</h3>
-    <span id="cerrar-carrito" onclick="cerrarCarrito()">✖</span>
-  </div>
-  <ul id="carrito-lista"></ul>
-  <button class="boton" onclick="vaciarCarrito()">Vaciar</button>
-  <button class="boton" onclick="enviarPedido()">Enviar por WhatsApp</button>
-</div>
-    
     body {
       font-family: 'Raleway', sans-serif;
-      color: #333;
-      scroll-behavior: smooth;
       background: linear-gradient(120deg, #e0f5ec, #f8fdf9);
       background-size: 400% 400%;
-      animation: backgroundAnimation 20s ease infinite;
+      animation: fondo 20s ease infinite;
+      color: #333;
+      scroll-behavior: smooth;
     }
 
-    @keyframes backgroundAnimation {
+    @keyframes fondo {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    header {
-      background: linear-gradient(120deg, var(--verde-oscuro), var(--verde-claro));
-      padding: 4rem 2rem;
-      text-align: center;
-      color: var(--blanco);
-      animation: fadeIn 1.2s ease-in;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      animation: popIn 1s ease-out;
-    }
-
-    header p {
-      font-size: 1.2rem;
-    }
-
-    /* Animaciones */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    /* Menú lateral + hamburguesa */
+    /* Menú lateral y botón hamburguesa */
     #menu-toggle {
       display: none;
     }
@@ -90,35 +47,14 @@
       height: 100vh;
       background-color: var(--verde-oscuro);
       padding: 2rem 1rem;
-      box-shadow: 2px 0 12px rgba(0,0,0,0.1);
       color: white;
       z-index: 999;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
       transform: translateX(-100%);
       transition: transform 0.4s ease;
     }
 
     #menu.open {
       transform: translateX(0);
-    }
-
-    #menu h3 {
-      margin-bottom: 1rem;
-    }
-
-    #menu a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-
-    #menu a:hover {
-      background-color: rgba(255, 255, 255, 0.15);
     }
 
     .menu-btn {
@@ -135,206 +71,237 @@
       cursor: pointer;
     }
 
+    #menu h3 {
+      margin-bottom: 1rem;
+    }
+
+    #menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    #menu a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
     @media (min-width: 768px) {
       #menu {
         transform: translateX(0);
       }
-
       .menu-btn {
         display: none;
       }
-
       body {
         margin-left: 220px;
       }
+    }
+
+    header {
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--blanco);
+      background: linear-gradient(120deg, var(--verde-oscuro), var(--verde-claro));
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      color: var(--verde-oscuro);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .producto {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .producto:hover {
+      transform: scale(1.03);
+    }
+
+    .producto img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    .producto h3 {
+      font-size: 1.1rem;
+      color: var(--verde-oscuro);
+    }
+
+    .producto p {
+      font-size: 0.95rem;
+      color: var(--gris);
+    }
+
+    .boton {
+      background-color: var(--verde-oscuro);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .boton:hover {
+      background-color: #256d49;
+    }
+
+    /* Carrito flotante */
+    #carrito-boton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #2f7e56;
+      color: white;
+      font-size: 1.5rem;
+      padding: 0.7rem 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+    }
+
+    #carrito-panel {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      max-height: 75vh;
+      background-color: #ffffff;
+      border: 2px solid #2f7e56;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      z-index: 1002;
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    #carrito-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #cerrar-carrito {
+      font-size: 1.3rem;
+      color: red;
+      cursor: pointer;
+    }
+
+    #carrito-panel ul {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #carrito-panel li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      background-color: var(--verde-claro);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--gris);
     }
   </style>
 </head>
 <body>
 
-<!-- Botón hamburguesa -->
 <button class="menu-btn" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
 
-<!-- Menú lateral funcional -->
 <div id="menu">
   <h3>Yogur Lukis</h3>
   <a href="#productos">Productos</a>
-  <a href="#" onclick="mostrarCarrito(); return false;">Carrito</a>
+  <a href="#" onclick="abrirCarrito(); return false;">Carrito</a>
   <a href="#nosotros">Nosotros</a>
 </div>
 
-<!-- Header -->
 <header>
   <h1>Yogur del Lukis</h1>
   <p>El yogur más natural, directo a tu mesa desde Santa Rita</p>
 </header>
 
-  <!-- Sección Productos -->
 <section id="productos">
-  <h2 style="text-align: center; margin: 2rem 0; font-size: 2rem; color: #2f7e56;">Nuestros Productos</h2>
-  <div class="productos">
-    <!-- Productos se insertan dinámicamente -->
-  </div>
+  <h2>Productos</h2>
+  <div class="productos" id="productos-container"></div>
 </section>
 
-<style>
+<section id="nosotros">
+  <h2>Sobre Nosotros</h2>
+  <p style="text-align: center; max-width: 800px; margin: auto;">
+    Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde Santa Rita, llevamos a tu hogar un producto honesto, fresco y nutritivo.
+  </p>
+</section>
 
-  /* Botón flotante pequeño */
-#carrito-boton {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #2f7e56;
-  color: white;
-  font-size: 1.5rem;
-  padding: 0.7rem 1rem;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
-}
+<footer>
+  <p>Contacto: <a href="mailto:luki.com">lukiiii</a></p>
+  <p>&copy; 2025 Yogur del Lukis. Todos los derechos reservados.</p>
+</footer>
 
-/* Panel del carrito */
-#carrito-panel {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 300px;
-  max-height: 75vh;
-  background-color: #ffffff;
-  border: 2px solid #2f7e56;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  z-index: 1002;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  animation: fadeIn 0.3s ease;
-}
+<!-- Carrito -->
+<div id="carrito-boton" onclick="abrirCarrito()" title="Ver carrito">🛒</div>
 
-#carrito-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#cerrar-carrito {
-  font-size: 1.3rem;
-  color: red;
-  cursor: pointer;
-}
-
-/* Oculto por defecto */
-.oculto {
-  display: none;
-}
-
-#carrito-panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-#carrito-panel li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-  
-  .productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    padding: 0 1rem;
-    max-width: 1000px;
-    margin: auto;
-  }
-
-  .producto {
-    background-color: var(--blanco);
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeIn 0.8s ease;
-  }
-
-  .producto:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  }
-
-  .producto img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-bottom: 0.8rem;
-    transition: transform 0.4s ease;
-  }
-
-  .producto img:hover {
-    transform: scale(1.05);
-  }
-
-  .producto h3 {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    color: var(--verde-oscuro);
-  }
-
-  .producto p {
-    font-size: 0.95rem;
-    color: var(--gris);
-  }
-
-  .boton {
-    display: inline-block;
-    background-color: var(--verde-oscuro);
-    color: var(--blanco);
-    padding: 0.5rem 1.2rem;
-    margin-top: 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-weight: bold;
-  }
-
-  .boton:hover {
-    background-color: #256d49;
-    transform: scale(1.05);
-  }
-</style>
+<div id="carrito-panel">
+  <div id="carrito-header">
+    <h3>Mi Carrito</h3>
+    <span id="cerrar-carrito" onclick="cerrarCarrito()">✖</span>
+  </div>
+  <ul id="carrito-lista"></ul>
+  <button class="boton" onclick="vaciarCarrito()">Vaciar</button>
+  <button class="boton" onclick="enviarPedido()">Enviar por WhatsApp</button>
+</div>
 
 <script>
-function abrirCarrito() {
-  document.getElementById("carrito-panel").classList.remove("oculto");
-  document.getElementById("carrito-boton").style.display = "none";
-}
-
-function cerrarCarrito() {
-  document.getElementById("carrito-panel").classList.add("oculto");
-  document.getElementById("carrito-boton").style.display = "block";
-}
-
-  
   const productos = [
-    { nombre: "Yogur Griego Natural 1 KG", imagen: "fer-lukin.jpg", descripcion: "Cremoso, sin azúcar. Ideal para recetas o solo." },
-    { nombre: "Yogur Griego Natural 1/2 KG", imagen: "Lukin.jpg", descripcion: "Con trozos de frutas reales. Sabor único." },
-    { nombre: "Miel", imagen: "miel.jpg", descripcion: "Miel pura." },
-    { nombre: "Nueces", imagen: "vainilla.jpg", descripcion: "Suaves, el clasico." },
-    { nombre: "Frutos secos", imagen: "durazno.jpg", descripcion: "Fruta fresca en cada bocado." },
-    { nombre: "Leche de mipalo", imagen: "coco.jpg", descripcion: "Textura cremosa y sabor tropical." }
+    { nombre: "Yogur Griego Natural", imagen: "fer-lukin.jpg", descripcion: "Cremoso, sin azúcar. Ideal para recetas o solo." },
+    { nombre: "Yogur con Frutas", imagen: "Lukin.jpg", descripcion: "Con trozos de frutas reales. Sabor único." },
+    { nombre: "Yogur con Miel", imagen: "miel.jpg", descripcion: "Dulce natural con miel pura." },
+    { nombre: "Yogur de Vainilla", imagen: "vainilla.jpg", descripcion: "Aromático y suave, un clásico." },
+    { nombre: "Yogur con Durazno", imagen: "durazno.jpg", descripcion: "Fruta fresca en cada bocado." },
+    { nombre: "Yogur con Coco", imagen: "coco.jpg", descripcion: "Textura cremosa y sabor tropical." }
   ];
 
   const carrito = [];
 
   function renderizarProductos() {
-    const contenedor = document.querySelector(".productos");
+    const contenedor = document.getElementById("productos-container");
     productos.forEach((p, index) => {
       const card = document.createElement("div");
       card.className = "producto";
@@ -352,77 +319,19 @@ function cerrarCarrito() {
     carrito.push(productos[index].nombre);
     actualizarCarrito();
   }
-</script>
 
-
-<style>
-  .carrito {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--verde-claro);
-    border: 2px solid var(--verde-oscuro);
-    border-radius: 12px;
-    padding: 1rem;
-    width: 280px;
-    max-height: 70vh;
-    overflow-y: auto;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    z-index: 1000;
-  }
-
-  .carrito h3 {
-    margin-bottom: 0.5rem;
-    color: var(--verde-oscuro);
-  }
-
-  .carrito ul {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .carrito li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  .carrito li button {
-    background: transparent;
-    border: none;
-    color: red;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-
-  @media (max-width: 600px) {
-    .carrito {
-      width: 90%;
-      right: 5%;
-      bottom: 10px;
-    }
-  }
-</style>
-
-<script>
   function actualizarCarrito() {
     const lista = document.getElementById("carrito-lista");
     lista.innerHTML = "";
-    carrito.forEach((item, index) => {
+    carrito.forEach((item, i) => {
       const li = document.createElement("li");
-      li.textContent = item;
-      const btn = document.createElement("button");
-      btn.innerText = "✖";
-      btn.onclick = () => eliminarProducto(index);
-      li.appendChild(btn);
+      li.innerHTML = `${item} <button onclick="eliminarProducto(${i})">✖</button>`;
       lista.appendChild(li);
     });
   }
 
-  function eliminarProducto(index) {
-    carrito.splice(index, 1);
+  function eliminarProducto(i) {
+    carrito.splice(i, 1);
     actualizarCarrito();
   }
 
@@ -440,36 +349,37 @@ function cerrarCarrito() {
     window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
   }
 
-  // Inicializa al cargar
+  function abrirCarrito() {
+    document.getElementById("carrito-panel").style.display = "flex";
+    document.getElementById("carrito-boton").style.display = "none";
+  }
+
+  function cerrarCarrito() {
+    document.getElementById("carrito-panel").style.display = "none";
+    document.getElementById("carrito-boton").style.display = "block";
+  }
+
   renderizarProductos();
-
-  function mostrarCarrito() {
-  const carrito = document.getElementById("carrito");
-  carrito.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  carrito.style.border = "3px solid #2f7e56";
-  setTimeout(() => carrito.style.border = "2px solid #2f7e56", 1000);
-
- 
-    
-}
-
-     <!-- Carrito Flotante -->
-<div id="carrito" class="carrito">
-  <h3>Carrito</h3>
-  <ul id="carrito-lista"></ul>
-  <button class="boton" onclick="vaciarCarrito()">Vaciar carrito</button>
-  <button class="boton" onclick="enviarPedido()">Enviar pedido</button>
-</div>
-  
 </script>
-  
-<section id="nosotros" style="padding: 2rem 1rem; max-width: 800px; margin: auto;">
-  <h2 style="text-align: center; margin-bottom: 1rem; color: #2f7e56;">Sobre Nosotros</h2>
-  <p style="text-align: center; font-size: 1rem;">
-    Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde Santa Rita, llevamos a tu hogar un producto honesto, fresco y nutritivo.
-  </p>
-</section>
 
+  <section>
+    <h2>¿Por qué elegirnos?</h2>
+    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
+      Nuestro yogur es elaborado con ingredientes 100% naturales, sin conservantes ni aditivos. Una opción saludable y artesanal para vos y tu familia. directamente enviado desde el corazon del tranza de santa rita!!!
+    </p>
+  </section>
+
+  <section>
+    <h2>Sobre Nosotros</h2>
+    <p style="text-align: center; max-width: 800px; margin: auto; font-size: 1.1rem;">
+      Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde el corazón de santa rita, llevamos a tu hogar un producto honesto, fresco y nutritivo.
+    </p>
+  </section>
+
+  <footer>
+    <p>Contacto: <a href="mailto:luki.com">lukiiii</a></p>
+    <p>&copy; 2025 Yogur del luki. Todos los derechos reservados.</p>
+  </footer>
+  
 </body>
 </html>
-
