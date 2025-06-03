@@ -141,11 +141,11 @@
 <!-- Botón hamburguesa -->
 <button class="menu-btn" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
 
-<!-- Menú lateral -->
+<!-- Menú lateral funcional -->
 <div id="menu">
   <h3>Yogur Lukis</h3>
   <a href="#productos">Productos</a>
-  <a href="#carrito">Carrito</a>
+  <a href="#" onclick="mostrarCarrito(); return false;">Carrito</a>
   <a href="#nosotros">Nosotros</a>
 </div>
 
@@ -356,7 +356,22 @@
 
   // Inicializa al cargar
   renderizarProductos();
+
+  function mostrarCarrito() {
+  const carrito = document.getElementById("carrito");
+  carrito.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  carrito.style.border = "3px solid #2f7e56";
+  setTimeout(() => carrito.style.border = "2px solid #2f7e56", 1000);
+}
+  
 </script>
+  
+<section id="nosotros" style="padding: 2rem 1rem; max-width: 800px; margin: auto;">
+  <h2 style="text-align: center; margin-bottom: 1rem; color: #2f7e56;">Sobre Nosotros</h2>
+  <p style="text-align: center; font-size: 1rem;">
+    Somos un pequeño emprendimiento familiar comprometido con la calidad y el sabor. Desde Santa Rita, llevamos a tu hogar un producto honesto, fresco y nutritivo.
+  </p>
+</section>
 
 </body>
 </html>
