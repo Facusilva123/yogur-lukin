@@ -177,20 +177,27 @@
     }
 
     /* Carrito flotante */
-    #carrito-boton {
-  position: fixed; 
-  bottom: 30px;
-  right: 30px;
-      
-  background-color:#ff5722;
+   #carrito-boton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff5722; /* naranja vibrante */
   color: white;
-  font-size: 2rem;
-  padding: 0.7rem 1rem;
+  padding: 0.9rem;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 1001;
-    }
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+#carrito-boton:hover {
+  transform: scale(1.05);
+}
 
     #carrito-panel {
       position: fixed;
