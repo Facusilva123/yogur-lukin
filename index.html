@@ -281,6 +281,16 @@
   </div>
   <ul id="carrito-lista"></ul>
   <button class="boton" onclick="vaciarCarrito()">Vaciar</button>
+
+  <label for="pago" style="margin-top: 0.5rem;">Forma de pago:</label>
+<select id="pago" class="boton" style="margin-bottom: 0.5rem;">
+  <option value="Efectivo">Efectivo</option>
+  <option value="Transferencia">Transferencia</option>
+</select>
+
+  <label for="direccion">Dirección de entrega:</label>
+<input type="text" id="direccion" placeholder="Ej: Mariano Moreno 231" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #ccc; width: 100%; margin-bottom: 0.7rem;">
+
   <button class="boton" onclick="enviarPedido()">Enviar por WhatsApp</button>
 </div>
 
@@ -337,13 +347,30 @@
   }
 
   function enviarPedido() {
-    if (carrito.length === 0) {
-      alert("El carrito está vacío.");
-      return;
-    }
-    const mensaje = encodeURIComponent("Hola Lukis! Quiero pedir:\n\n" + carrito.map(p => "• " + p).join("\n"));
-    window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
+  if (carrito.length === 0) {
+    alert("El carrito está vacío.");
+    return;
   }
+
+  const formaPago = document.getElementById("pago").value;
+  const direccion = document.getElementById("direccion").value.trim();
+
+  if (direccion === "") {
+    alert("Por favor, ingresá una dirección de entrega.");
+    return;
+  }
+
+  const mensaje = encodeURIComponent(
+    "Hola Lukis! Quiero pedir:\n\n" +
+    carrito.map(p => "• " + p).join("\n") +
+    "\n\nForma de pago: " + formaPago +
+    "\nDirección: " + direccion
+  );
+
+  window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
+}
+
+
 
   function abrirCarrito() {
     document.getElementById("carrito-panel").style.display = "flex";
