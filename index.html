@@ -284,6 +284,15 @@
 
   <label for="pago" style="margin-top: 0.5rem;">Forma de pago:</label>
 <select id="pago" class="boton" style="margin-bottom: 0.5rem;">
+
+  <div id="datos-transferencia" style="display: none; margin-bottom: 1rem; font-size: 0.9rem; border: 1px dashed #ccc; padding: 0.7rem; border-radius: 6px;">
+  <strong>Datos para transferir:</strong><br>
+  Titular: Lucas Rene Santillan<br>
+  CBU: 0000003100031825182389<br>
+  Alias: yogur.lukis.mp<br>
+  Banco: Galicia
+</div>
+
   <option value="Efectivo">Efectivo</option>
   <option value="Transferencia">Transferencia</option>
 </select>
@@ -385,6 +394,23 @@
   document.addEventListener("DOMContentLoaded", function () {
     renderizarProductos();
   });
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderizarProductos();
+
+  const pagoSelect = document.getElementById("pago");
+  const datosTransferencia = document.getElementById("datos-transferencia");
+
+  pagoSelect.addEventListener("change", function () {
+    if (this.value === "Transferencia") {
+      datosTransferencia.style.display = "block";
+    } else {
+      datosTransferencia.style.display = "none";
+    }
+  });
+});
+
+  
 </script>
 
   <section>
