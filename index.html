@@ -366,12 +366,6 @@
     mostrarCarrito();
   }
     
-  const totalElemento = document.createElement("p");
-  totalElemento.style.fontWeight = "bold";
-  totalElemento.style.marginTop = "0.5rem";
-  totalElemento.innerText = `Total: $${total}`;
-  lista.appendChild(totalElemento);
-}
 
   function eliminarDelCarrito(nombre) {
     carrito = carrito.filter(p => p.nombre !== nombre);
@@ -379,23 +373,38 @@
   }
 
     function mostrarCarrito() {
-    const carritoDiv = document.getElementById("carrito");
-    carritoDiv.innerHTML = "";
+  const lista = document.getElementById("carrito-lista");
+  lista.innerHTML = "";
+  let total = 0;
 
-    let totalGeneral = 0;
+  carrito.forEach((item) => {
+    const totalProducto = item.precio * item.cantidad;
+    total += totalProducto;
 
-    carrito.forEach(p => {
-      const totalProducto = p.precio * p.cantidad;
-      totalGeneral += totalProducto;
-      carritoDiv.innerHTML += `
-        <p>
-          ${p.nombre} x${p.cantidad} - $${totalProducto}
-          <button onclick="agregarAlCarrito('${p.nombre}')">➕</button>
-          <button onclick="quitarDelCarrito('${p.nombre}')">➖</button>
-          <button onclick="eliminarDelCarrito('${p.nombre}')">❌</button>
-        </p>
-      `;
-    });
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${item.nombre} x${item.cantidad} - $${totalProducto}
+      <div>
+        <button onclick="agregarAlCarrito(${productos.findIndex(p => p.nombre === item.nombre)})">➕</button>
+        <button onclick="quitarDelCarrito('${item.nombre}')">➖</button>
+        <button onclick="eliminarDelCarrito('${item.nombre}')">❌</button>
+      </div>
+    `;
+    lista.appendChild(li);
+  });
+
+  if (carrito.length > 0) {
+    const totalElemento = document.createElement("p");
+    totalElemento.style.fontWeight = "bold";
+    totalElemento.innerText = `Total: $${total}`;
+    lista.appendChild(totalElemento);
+  } else {
+    const vacio = document.createElement("p");
+    vacio.innerText = "Carrito vacío";
+    lista.appendChild(vacio);
+  }
+}
+
 
       if (carrito.length === 0) {
       carritoDiv.innerHTML = "<p>Carrito vacío</p>";
@@ -406,7 +415,7 @@
     
   function vaciarCarrito() {
     carrito.length = 0;
-    actualizarCarrito();
+    mostrarCarrito();
   }
 
   function enviarPedido() {
