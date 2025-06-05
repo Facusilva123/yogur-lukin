@@ -386,27 +386,6 @@
     return;
   }
 
-  const formaPago = document.getElementById("pago").value;
-  const direccion = document.getElementById("direccion").value.trim();
-
-  if (direccion === "") {
-    alert("Por favor, ingresá una dirección de entrega.");
-    return;
-  }
-
-  const total = carrito.reduce((sum, item) => sum + item.precio, 0);
-
-  const mensaje = encodeURIComponent(
-    "Hola Lukis! Quiero pedir:\n\n" +
-    carrito.map(p => `• ${p.nombre} - $${p.precio}`).join("\n") +
-    `\n\nTotal: $${total}` +
-    `\nForma de pago: ${formaPago}` +
-    `\nDirección: ${direccion}`
-  );
-
-  window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
-}
-
     const formaPago = document.getElementById("pago").value;
     const direccion = document.getElementById("direccion").value.trim();
 
