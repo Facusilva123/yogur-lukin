@@ -13,12 +13,67 @@
       --gris: #5a5a5a;
     }
 
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-contenido {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  animation: fadeIn 0.4s ease;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: red;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    <!-- Modal de Transferencia -->
+<div id="modal-transferencia" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal()">✖</span>
+    <h3>Datos para Transferencia</h3>
+    <p><strong>Titular:</strong> Lucas Rene Santillan</p>
+    <p><strong>CBU:</strong> 0000003100031825182389</p>
+    <p><strong>Alias:</strong> yogur.lukis.mp</p>
+    <p><strong>Banco:</strong> Galicia</p>
+  </div>
+</div>
+
+    
    body {
   background-image: url('https://raw.githubusercontent.com/Facusilva123/yogur-lukin/main/fondo_pagina.jpg');
   background-size: cover;
@@ -262,6 +317,9 @@
   <a href="#productos">Productos</a>
   <a href="#" onclick="abrirCarrito(); return false;">Carrito</a>
   <a href="#nosotros">Nosotros</a>
+
+  <img src="https://raw.githubusercontent.com/Facusilva123/yogur-lukin/main/logo_snack.jpg" alt="Snack Yogur Lukis" style="width: 100px; margin-top: auto; margin-left: 10px; margin-bottom: 10px;">
+
 </div>
 
 <header>
@@ -411,6 +469,27 @@ document.addEventListener("DOMContentLoaded", function () {
       datosTransferencia.style.display = "none";
     }
   });
+});
+
+  function cerrarModal() {
+  document.getElementById("modal-transferencia").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderizarProductos();
+
+  const pagoSelect = document.getElementById("pago");
+  const modal = document.getElementById("modal-transferencia");
+
+  if (pagoSelect && modal) {
+    pagoSelect.addEventListener("change", function () {
+      if (this.value === "Transferencia") {
+        modal.style.display = "flex";
+      } else {
+        cerrarModal();
+      }
+    });
+  }
 });
 
   
