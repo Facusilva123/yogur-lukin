@@ -342,12 +342,30 @@
 });
   }
 
-  function agregarAlCarrito(index) {
-    carrito.push(productos[index]);
-  actualizarCarrito();
-  abrirCarrito();
+  function agregarAlCarrito(nombre) {
+    const producto = productos.find(p => p.nombre === nombre);
+    const item = carrito.find(p => p.nombre === nombre);
+
+    if (item) {
+      item.cantidad += 1;
+    } else {
+      carrito.push({ ...producto, cantidad: 1 });
+    }
+
+    mostrarCarrito();
   }
 
+     function quitarDelCarrito(nombre) {
+    const item = carrito.find(p => p.nombre === nombre);
+    if (item) {
+      item.cantidad -= 1;
+      if (item.cantidad <= 0) {
+        carrito = carrito.filter(p => p.nombre !== nombre);
+      }
+    }
+    mostrarCarrito();
+  }
+    
   function actualizarCarrito() {
   const lista = document.getElementById("carrito-lista");
   lista.innerHTML = "";
@@ -367,11 +385,37 @@
   lista.appendChild(totalElemento);
 }
 
-  function eliminarProducto(i) {
-    carrito.splice(i, 1);
-    actualizarCarrito();
+  function eliminarDelCarrito(nombre) {
+    carrito = carrito.filter(p => p.nombre !== nombre);
+    mostrarCarrito();
   }
 
+    function mostrarCarrito() {
+    const carritoDiv = document.getElementById("carrito");
+    carritoDiv.innerHTML = "";
+
+    let totalGeneral = 0;
+
+    carrito.forEach(p => {
+      const totalProducto = p.precio * p.cantidad;
+      totalGeneral += totalProducto;
+      carritoDiv.innerHTML += `
+        <p>
+          ${p.nombre} x${p.cantidad} - $${totalProducto}
+          <button onclick="agregarAlCarrito('${p.nombre}')">➕</button>
+          <button onclick="quitarDelCarrito('${p.nombre}')">➖</button>
+          <button onclick="eliminarDelCarrito('${p.nombre}')">❌</button>
+        </p>
+      `;
+    });
+
+      if (carrito.length === 0) {
+      carritoDiv.innerHTML = "<p>Carrito vacío</p>";
+    } else {
+      carritoDiv.innerHTML += `<hr><p><strong>Total: $${totalGeneral}</strong></p>`;
+    }
+  }
+    
   function vaciarCarrito() {
     carrito.length = 0;
     actualizarCarrito();
