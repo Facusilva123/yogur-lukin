@@ -343,7 +343,7 @@
   `;
   contenedor.appendChild(card);
 });
-
+  }
 
   function agregarAlCarrito(index) {
     carrito.push(productos[index]);
@@ -395,11 +395,12 @@
     }
 
     const mensaje = encodeURIComponent(
-      "Hola Lukis! Quiero pedir:\n\n" +
-      carrito.map(p => "• " + p).join("\n") +
-      "\n\nForma de pago: " + formaPago +
-      "\nDirección: " + direccion
-    );
+  "Hola Lukis! Quiero pedir:\n\n" +
+  carrito.map(p => `• ${p.nombre} - $${p.precio}`).join("\n") +
+  `\n\nTotal: $${carrito.reduce((sum, item) => sum + item.precio, 0)}` +
+  `\nForma de pago: ${formaPago}` +
+  `\nDirección: ${direccion}`
+);
 
     window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
   }
