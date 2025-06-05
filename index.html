@@ -335,30 +335,42 @@
       const card = document.createElement("div");
       card.className = "producto";
       card.innerHTML = `
-        <img src="${p.imagen}" alt="${p.nombre}">
-        <h3>${p.nombre}</h3>
-        <p>${p.descripcion}</p>
-        <button class="boton" onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
-      `;
+        card.innerHTML = `
+    <img src="${p.imagen}" alt="${p.nombre}">
+    <h3>${p.nombre}</h3>
+    <p>${p.descripcion}</p>
+    <p><strong>$${p.precio}</strong></p>
+    <button class="boton" onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
+    ;
+
       contenedor.appendChild(card);
     });
   }
 
   function agregarAlCarrito(index) {
-    carrito.push(productos[index].nombre);
-    actualizarCarrito();
-    abrirCarrito();
+    carrito.push(productos[index]);
+  actualizarCarrito();
+  abrirCarrito();
   }
 
   function actualizarCarrito() {
-    const lista = document.getElementById("carrito-lista");
-    lista.innerHTML = "";
-    carrito.forEach((item, i) => {
-      const li = document.createElement("li");
-      li.innerHTML = `${item} <button onclick="eliminarProducto(${i})">✖</button>`;
-      lista.appendChild(li);
-    });
-  }
+  const lista = document.getElementById("carrito-lista");
+  lista.innerHTML = "";
+  let total = 0;
+
+  carrito.forEach((item, i) => {
+    total += item.precio;
+    const li = document.createElement("li");
+    li.innerHTML = `${item.nombre} - $${item.precio} <button onclick="eliminarProducto(${i})">✖</button>`;
+    lista.appendChild(li);
+  });
+
+  const totalElemento = document.createElement("p");
+  totalElemento.style.fontWeight = "bold";
+  totalElemento.style.marginTop = "0.5rem";
+  totalElemento.innerText = `Total: $${total}`;
+  lista.appendChild(totalElemento);
+}
 
   function eliminarProducto(i) {
     carrito.splice(i, 1);
@@ -371,10 +383,31 @@
   }
 
   function enviarPedido() {
-    if (carrito.length === 0) {
-      alert("El carrito está vacío.");
-      return;
-    }
+  if (carrito.length === 0) {
+    alert("El carrito está vacío.");
+    return;
+  }
+
+  const formaPago = document.getElementById("pago").value;
+  const direccion = document.getElementById("direccion").value.trim();
+
+  if (direccion === "") {
+    alert("Por favor, ingresá una dirección de entrega.");
+    return;
+  }
+
+  const total = carrito.reduce((sum, item) => sum + item.precio, 0);
+
+  const mensaje = encodeURIComponent(
+    "Hola Lukis! Quiero pedir:\n\n" +
+    carrito.map(p => `• ${p.nombre} - $${p.precio}`).join("\n") +
+    `\n\nTotal: $${total}` +
+    `\nForma de pago: ${formaPago}` +
+    `\nDirección: ${direccion}`
+  );
+
+  window.open(`https://wa.me/5493814729304?text=${mensaje}`, '_blank');
+}
 
     const formaPago = document.getElementById("pago").value;
     const direccion = document.getElementById("direccion").value.trim();
