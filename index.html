@@ -323,7 +323,7 @@
     
   ];
 
-  const carrito = [];
+  let carrito = [];
 
   function renderizarProductos() {
     const contenedor = document.getElementById("productos-container");
@@ -342,18 +342,18 @@
 });
   }
 
-  function agregarAlCarrito(nombre) {
-    const producto = productos.find(p => p.nombre === nombre);
-    const item = carrito.find(p => p.nombre === nombre);
+  function agregarAlCarrito(index) {
+  const producto = productos[index];
+  const item = carrito.find(p => p.nombre === producto.nombre);
 
-    if (item) {
-      item.cantidad += 1;
-    } else {
-      carrito.push({ ...producto, cantidad: 1 });
-    }
-
-    mostrarCarrito();
+  if (item) {
+    item.cantidad += 1;
+  } else {
+    carrito.push({ ...producto, cantidad: 1 });
   }
+
+  mostrarCarrito();
+}
 
      function quitarDelCarrito(nombre) {
     const item = carrito.find(p => p.nombre === nombre);
@@ -366,18 +366,6 @@
     mostrarCarrito();
   }
     
-  function actualizarCarrito() {
-  const lista = document.getElementById("carrito-lista");
-  lista.innerHTML = "";
-  let total = 0;
-
-  carrito.forEach((item, i) => {
-    total += item.precio;
-    const li = document.createElement("li");
-    li.innerHTML = `${item.nombre} - $${item.precio} <button onclick="eliminarProducto(${i})">✖</button>`;
-    lista.appendChild(li);
-  });
-
   const totalElemento = document.createElement("p");
   totalElemento.style.fontWeight = "bold";
   totalElemento.style.marginTop = "0.5rem";
@@ -437,8 +425,8 @@
 
     const mensaje = encodeURIComponent(
   "Hola Lukis! Quiero pedir:\n\n" +
-  carrito.map(p => `• ${p.nombre} - $${p.precio}`).join("\n") +
-  `\n\nTotal: $${carrito.reduce((sum, item) => sum + item.precio, 0)}` +
+  carrito.map(p => `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}`).join("\n") +
+  `\n\nTotal: $${carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0)}` +
   `\nForma de pago: ${formaPago}` +
   `\nDirección: ${direccion}`
 );
