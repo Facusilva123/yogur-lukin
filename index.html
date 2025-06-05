@@ -332,20 +332,18 @@
     const contenedor = document.getElementById("productos-container");
     contenedor.innerHTML = "";
     productos.forEach((p, index) => {
-      const card = document.createElement("div");
-      card.className = "producto";
-      card.innerHTML = `
-        card.innerHTML = `
+  const card = document.createElement("div");
+  card.className = "producto";
+  card.innerHTML = `
     <img src="${p.imagen}" alt="${p.nombre}">
     <h3>${p.nombre}</h3>
     <p>${p.descripcion}</p>
-    <p><strong>$${p.precio}</strong></p>
+    ${p.precio ? `<p><strong>$${p.precio}</strong></p>` : ''}
     <button class="boton" onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
-    ;
+  `;
+  contenedor.appendChild(card);
+});
 
-      contenedor.appendChild(card);
-    });
-  }
 
   function agregarAlCarrito(index) {
     carrito.push(productos[index]);
